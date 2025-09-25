@@ -1,7 +1,7 @@
 import requests
 import json
 
-def call_ollama_api(prompt, model="gemma3"):
+def call_ollama_api(prompt, model="gemma3", temperature=0.7, top_p=0.9, top_k=40, max_tokens=512):
     """
     Call the Ollama API with the given prompt and model.
     Args:
@@ -13,7 +13,13 @@ def call_ollama_api(prompt, model="gemma3"):
     payload = {
         "model": model,
         "prompt": prompt,
-        "stream": False
+        "stream": False,
+        "options": {
+            "temperature": temperature,
+            "top_p": top_p,
+            "top_k": top_k,
+            "max_tokens": max_tokens
+        }
     }
     response = requests.post(url, data=json.dumps(payload))
 
@@ -23,11 +29,16 @@ def call_ollama_api(prompt, model="gemma3"):
         raise Exception(f"API call failed with status code {response.status_code}: {response.text}")
 
 if __name__ == "__main__":
-    prompt = "What is the capital of France?"
+    PROMPT = "Propose un titre original de film d'horreur. Ne donne que le titre, sans autre texte."
     try:
-        print("Sending prompt to Ollama API...")
-        result = call_ollama_api(prompt)
-        print("Response from Ollama API:")
-        print(result['response'])
+        TEMPERATURE = 1.5
+        TOP_P = 0.9
+        TOP_K = 50
+        MAX_TOKENS = 512
+        print(f"Using parameters: temperature={TEMPERATURE}, top_p={TOP_P}, top_k={TOP_K}, max_tokens={MAX_TOKENS}")
+        for i in range(5):  # Generate 5 different titles
+            result = call_ollama_api(PROMPT, temperature=TEMPERATURE, top_p=TOP_P, top_k=TOP_K, max_tokens=MAX_TOKENS)
+            response = result['response'].strip()
+            print(f"Response {i+1}: {response}")
     except Exception as e:
         print(f"Error: {e}")
