@@ -32,8 +32,8 @@ if __name__ == "__main__":
     PROMPT = "Propose un titre original de film d'horreur. Ne donne que le titre, sans autre texte."
     try:
         TEMPERATURE = 1.5
-        TOP_P = 0.9
-        TOP_K = 50
+        TOP_P = 0.9 # 0 to 1
+        TOP_K = 50 # 0 to 100
         MAX_TOKENS = 512
         print(f"Using parameters: temperature={TEMPERATURE}, top_p={TOP_P}, top_k={TOP_K}, max_tokens={MAX_TOKENS}")
         for i in range(5):  # Generate 5 different titles
