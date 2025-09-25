@@ -2,6 +2,12 @@ import requests
 import json
 
 def call_ollama_api(prompt, model="gemma3"):
+    """
+    Call the Ollama API with the given prompt and model.
+    Args:
+        prompt (str): The prompt to send to the model.
+        model (str): The model to use (default is "gemma3").
+    """
     url = f"http://localhost:11434/api/generate"
 
     payload = {
