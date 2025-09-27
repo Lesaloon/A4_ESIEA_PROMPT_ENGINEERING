@@ -1,0 +1,38 @@
+{
+    "step1": {
+        "prompt": "Identifie les points clés et les concepts importants dans le texte suivant : {data}.",
+        "model": "gemma3",
+        "temperature": 0.7,
+        "top_p": 0.9,
+        "top_k": 50
+    },
+    "step2": {
+        "prompt": "Quel est le thème général du texte suivant : {data}.",
+        "model": "gemma3",
+        "temperature": 0.3,
+        "top_p": 0.9,
+        "top_k": 50
+    },
+    "step3": {
+        "prompt": "À partir des points clés suivants : {key_points} \n et du thème suivant : {theme} \n, génère exactement 4 questions de quiz avec 4 options chacune. Format strict à respecter:\n\nQuestion 1: [Texte de la question]\nA) [Option A]\nB) [Option B] \nC) [Option C]\nD) [Option D]\nRéponse correcte: [Texte complet de la bonne réponse]\n\nQuestion 2: [Texte de la question]\nA) [Option A]\nB) [Option B]\nC) [Option C] \nD) [Option D]\nRéponse correcte: [Texte complet de la bonne réponse]\n\n[Continue pour 4 questions]",
+        "model": "gemma3",
+        "temperature": 1.0,
+        "top_p": 0.95,
+        "top_k": 100
+    },
+    "step4": {
+        "prompt": "Donne ta réponse sous le format suivant: (OUI|NON). Vérifie que le quiz suivant est cohérent, que les réponses sont correctes et que les questions couvrent bien les points clés suivants : {key_points}. Quiz à valider : {quiz}",
+        "model": "gemma3",
+        "temperature": 0.2,
+        "top_p": 0.9,
+        "top_k": 1,
+        "max_tokens": 10
+    },
+    "step5": {
+        "prompt": "Convertis le quiz suivant en format JSON valide. Retourne UNIQUEMENT le JSON, sans texte d'explication, sans backticks, sans marqueurs de code. IMPORTANT: utilise le texte complet des questions et des réponses, PAS des lettres A/B/C/D. Format attendu: {{\"quiz\": [{{\"question\": \"Texte complet de la vraie question?\", \"options\": [\"Texte complet option 1\", \"Texte complet option 2\", \"Texte complet option 3\", \"Texte complet option 4\"], \"answer\": \"Texte complet de la bonne réponse\"}}]}}. Quiz à convertir : {quiz}",
+        "model": "codellama",
+        "temperature": 0.2,
+        "top_p": 0.9,
+        "top_k": 50
+    }
+}
